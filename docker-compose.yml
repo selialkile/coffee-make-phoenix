@@ -1,13 +1,21 @@
-mysql:
-  image: mysql
+postgres:
+  image: postgres:alpine
   environment:
-    MYSQL_ROOT_PASSWORD: pass
-    MYSQL_DATABASE: coffeemaker
+    POSTGRES_PASSWORD: "pass"
+    POSTGRES_USER: "postgres"
+  expose:
+    - "5432"
+  ports:
+    - "5432:5432"
 
 web:
   build: .
   links:
-    - mysql
+    - postgres
+  expose:
+    - "4000"
+  ports:
+    - "4000:4000"
   working_dir: /var/www/coffee-maker
   volumes:
     - .:/var/www/coffee-maker
