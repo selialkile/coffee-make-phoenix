@@ -1,0 +1,15 @@
+mysql:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: coffeemaker
+
+web:
+  build: .
+  links:
+    - mysql
+  working_dir: /var/www/coffee-maker
+  volumes:
+    - .:/var/www/coffee-maker
+  entrypoint:
+    - /root/start_services.sh
